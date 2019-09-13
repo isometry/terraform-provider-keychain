@@ -1,6 +1,6 @@
 # Terraform Keychain Provider
 
-A trivial Terraform provider exposing passwords from the macOS Keychain.
+A simple Terraform provider for passwords in the macOS Keychain.
 
 ## Usage
 
@@ -8,8 +8,14 @@ A trivial Terraform provider exposing passwords from the macOS Keychain.
 provider "keychain" {}
 
 data "keychain_password" "example" {
-  service  = "Example Service"
+  service  = "https://data.example.com"
   username = "test@example.com"
+}
+
+resource "keychain_password" "example" {
+  service  = "https://resource.example.com"
+  username = "test@example.com"
+  password = "Passw0rd!"
 }
 
 output "example_password" {

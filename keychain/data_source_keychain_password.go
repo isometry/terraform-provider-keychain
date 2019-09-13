@@ -1,4 +1,4 @@
-package main
+package keychain
 
 import (
 	"crypto/sha256"
@@ -22,8 +22,9 @@ func dataSourceKeychainPassword() *schema.Resource {
 				Required: true,
 			},
 			"password": {
-				Type:     schema.TypeString,
-				Computed: true,
+				Type:      schema.TypeString,
+				Computed:  true,
+				Sensitive: true,
 			},
 		},
 	}
