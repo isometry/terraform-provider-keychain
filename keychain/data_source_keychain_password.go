@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 
 	"github.com/hashicorp/terraform/helper/schema"
-	keychain "github.com/keybase/go-keychain"
+	"github.com/hashicorp/terraform/helper/validation"
 )
 
 func dataSourceKeychainPassword() *schema.Resource {
@@ -13,6 +13,13 @@ func dataSourceKeychainPassword() *schema.Resource {
 		Read: dataSourceKeychainPasswordRead,
 
 		Schema: map[string]*schema.Schema{
+			"class": {
+				Type:         schema.TypeString,
+				Optional:     true,
+				Default:      "generic",
+				ForceNew:     true,
+				ValidateFunc: validation.StringInSlice(classAllowedValues, false),
+			},
 			"service": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
@@ -31,15 +38,16 @@ func dataSourceKeychainPassword() *schema.Resource {
 }
 
 func dataSourceKeychainPasswordRead(d *schema.ResourceData, _ interface{}) error {
+	class := d.Get("class").(string)
 	service := d.Get("service").(string)
 	username := d.Get("username").(string)
-	password, err := keychain.GetGenericPassword(service, username, "", "")
+	password, err := readDataSourcePassword(classLookup[class], service, username)
 	if err != nil {
 		return err
 	}
 	d.Set("password", string(password))
 
-	checksum := sha256.Sum256([]byte(password))
+	checksum := sha256.Sum256(password)
 	d.SetId(hex.EncodeToString(checksum[:]))
 
 	return nil

@@ -8,11 +8,14 @@ A simple Terraform provider for passwords in the macOS Keychain.
 provider "keychain" {}
 
 data "keychain_password" "example" {
+  // class = "generic"
   service  = "https://data.example.com"
   username = "test@example.com"
 }
 
 resource "keychain_password" "example" {
+  // class = "generic"
+  // kind  = "application password"
   service  = "https://resource.example.com"
   username = "test@example.com"
   password = "Passw0rd!"
