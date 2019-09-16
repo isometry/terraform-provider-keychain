@@ -2,6 +2,8 @@
 
 A simple Terraform provider for passwords in the macOS Keychain.
 
+WARNING: keychain passwords are copied in plaintext to your Terraform state. Consider the implications and weigh the risks before using this provider.
+
 ## Usage
 
 ```terraform
