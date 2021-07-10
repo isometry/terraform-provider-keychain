@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0 (2021-07-10)
+
+* Update to terraform-plugin-sdk v2, Go 1.16 and vendor dependencies.
+
 ## 0.3.0 (2019-09-14)
 
 * Add `class` attribute to `keychain_password` data source, enabling access to 'internet' passwords.

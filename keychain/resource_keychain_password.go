@@ -4,8 +4,8 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 
-	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/hashicorp/terraform/helper/validation"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
 func resourceKeychainPassword() *schema.Resource {
@@ -16,10 +16,10 @@ func resourceKeychainPassword() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"class": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Default:  "generic",
-				ForceNew: true,
+				Type:         schema.TypeString,
+				Optional:     true,
+				Default:      "generic",
+				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(classAllowedValues, false),
 			},
 			"kind": {
@@ -28,12 +28,12 @@ func resourceKeychainPassword() *schema.Resource {
 				Default:  defaultKind,
 				ForceNew: true,
 			},
-			"service": &schema.Schema{
+			"service": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"username": &schema.Schema{
+			"username": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,

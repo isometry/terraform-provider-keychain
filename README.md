@@ -1,6 +1,6 @@
 # Terraform Keychain Provider
 
-A simple Terraform provider for passwords in the macOS Keychain.
+A simple proof-of-concept Terraform provider for managing passwords in the macOS Keychain.
 
 ## Provider
 
